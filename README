@@ -11,3 +11,7 @@ Git Push Command
 git push <remote_name> <branch_name>
 
 git push origin main
+
+git commit -m "Your descriptive commit message here"
+
+The -m flag allows you to provide the commit message directly in the command.
