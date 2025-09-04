@@ -5,3 +5,9 @@ composer require symfony/maker-bundle --dev
 Doctrine bundle
 
 composer require symfony/orm-pack
+
+Git Push Command 
+
+git push <remote_name> <branch_name>
+
+git push origin main
