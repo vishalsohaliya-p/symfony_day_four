@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=vishal
+      - POSTGRES_PASSWORD=vishal
+      - POSTGRES_DB=my_test_db
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./var/docker/postgres:/var/lib/postgresql/data
+    #   - ./entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh
+    # command: ["/docker-entrypoint-initdb.d/entrypoint.sh"]
+    # command: >
+    #   sh -c "
+    #     HOST_IP=$(grep nameserver /etc/resolv.conf | awk '{print $2}') &&
+    #     sed -i '/host *all *all .* md5/d' /var/lib/postgresql/data/pg_hba.conf &&
+    #     echo \"host all all 192.168.110.95/32 md5\" >> /var/lib/postgresql/data/pg_hba.conf &&
+    #     exec postgres -c listen_addresses='*'
+    #   "
+    #'\"$HOST_IP\"'
+    # - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+    # command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf", "-c", "listen_addresses=*"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vishal -d my_test_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+#   pgadmin:
+#     image: dpage/pgadmin4
+#     environment:
+#       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+#       - PGADMIN_DEFAULT_PASSWORD=vishal
+#     volumes:
+#       - pgadmin_data:/var/lib/pgadmin/data
+#     ports:
+#       - "5433:5433"
+# volumes:
+#   pgadmin_data:
+  

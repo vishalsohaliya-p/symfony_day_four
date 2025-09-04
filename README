@@ -1,0 +1,7 @@
+To Add maker bundle need to run below command
+
+composer require symfony/maker-bundle --dev
+
+Doctrine bundle
+
+composer require symfony/orm-pack

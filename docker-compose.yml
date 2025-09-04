@@ -1,0 +1,52 @@
+services:
+  mysql:
+    image: mysql:9
+    container_name: symfony_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony_app
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/you/project/var/docker/mysql:/var/lib/mysql
+    # healthcheck:
+    #   test: ["CMD-SHELL", "mysqladmin ping -h localhost -u symfony --password=symfony || exit 1"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
+    restart: unless-stopped
+
+  # postgres:
+  #   image: postgres:16
+  #   container_name: symfony_postgres
+  #   environment:
+  #     POSTGRES_USER: symfony
+  #     POSTGRES_PASSWORD: symfony
+  #     POSTGRES_DB: symfony_app
+  #     POSTGRES_INITDB_ARGS: "--auth-host=md5"
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - ./var/docker/postgres:/var/lib/postgresql/data
+  #   command: >
+  #     postgres 
+  #     -c listen_addresses='*'
+  #     -c max_connections=100
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U symfony -d symfony_app"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   restart: unless-stopped
+
+  # adminer:
+  #   image: adminer
+  #   container_name: symfony_adminer
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   ports:
+  #     - "5433:8080"
+  #   restart: unless-stopped
